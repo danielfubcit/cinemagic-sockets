@@ -23,24 +23,17 @@ const allusers = {};
 //when a user connected, do these
 io.on('connection', (socket) => {
   console.log('a user connected', socket.id);
-  // io.emit("change", socket.id);
 
   // detect different user connect
   allusers[socket.id] = {left:0, top:0}
   io.emit("user_connected", allusers);
 
   // alert button
-  socket.on("alert_all", (txt)=>{
-    io.emit("change", socket.id, txt)
+  socket.on("send_msg", (txt, name)=>{
+    io.emit("change", socket.id, txt, name)
   });
 
-  // check mouse movement
-  socket.on("mouse_moved", (x,y)=>{
-    socket.broadcast.emit("change_mouse", x, y, socket.id)
-    // socket.broadcast wont show the msg itself and only for others
-  })
-
-  //when a user disconnect, it moved
+  //when a user disconnect, it removed
   socket.on("disconnect", ()=>{
     delete allusers[socket.id];
     io.emit("user_connected", allusers)
