@@ -5,7 +5,7 @@ const server = http.createServer(app);
 const { Server, Socket } = require("socket.io");
 const io = new Server(server, {
   cors: {
-    origin: ["https://cinemagic-coral.vercel.app/"],
+    origin: ["www.vercel.com"],
     allowedHeaders: ["Access-Control-Allow-Origin"],
     credential: true
   }
